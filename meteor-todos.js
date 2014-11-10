@@ -24,6 +24,8 @@ if (Meteor.isClient) {
       // Insert into db
       Tasks.insert({
         text: text,
+        owner: Meteor.userId(),           // _id of the logged in user
+        username: Meteor.user().username, // username of logged in user
         createdAt: new Date()
       });
 
@@ -46,6 +48,9 @@ if (Meteor.isClient) {
     "click .delete": function () {
       Tasks.remove(this._id);
     }
+  });
+  Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
   });
 }
 
